@@ -17,6 +17,7 @@ rm -rf work/x86_64/airootfs/etc/mtab
 echo "rootfs / rootfs rw 0 0" | tee work/x86_64/airootfs/etc/mtab
 rm -rf `find  work/x86_64/airootfs/root/ -type f`
 rm -rf `find work/x86_64/airootfs/var/cache/pacman/pkg/ -type f`
+ln -sf /etc/locale.conf work/x86_64/airootfs/etc/default/locale
 echo "compressing..."
 (cd work/x86_64/airootfs/;tar -zcpf ../../../install.tar.gz *)
 chown `id -un` install.tar.gz
