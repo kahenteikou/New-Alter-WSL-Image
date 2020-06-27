@@ -10,8 +10,8 @@ cp pacman.conf.nosig work/x86_64/airootfs/etc/pacman.d/pacman.conf
 cp mirrorlist work/x86_64/airootfs/etc/pacman.d/
 cp mirrorlist-alter work/x86_64/airootfs/etc/pacman.d/
 cp sudoers work/x86_64/airootfs/etc/
-groupadd wheel
-$mkalteriso -a x86_64 -w work/x86_64 -C pacman-x86_64.conf -D install_dir -p "${PACKAGES}" install
+cp adduser-deb-3.113+nmu3-1-any.pkg.tar work/x86_64/airootfs/
+$mkalteriso -a x86_64 -w work/x86_64 -r "pacman -U /adduser-deb-3.113+nmu3-1-any.pkg.tar" run
 rm -rf work/x86_64/airootfs/etc/mtab
 echo "rootfs / rootfs rw 0 0" | tee work/x86_64/airootfs/etc/mtab
 rm -rf `find  work/x86_64/airootfs/root/ -type f`
