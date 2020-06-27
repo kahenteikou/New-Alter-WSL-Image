@@ -38,7 +38,7 @@ int command_collection::_chroot_init(){
     if(!dir.exists("airootfs")){
         dir.mkpath("airootfs");
     }
-    _pacman("base base-devel syslinux mkinitcpio");
+    _pacman("base base-devel yay-bin nano vim sudo wget curl");
     return 0;
 }
 int command_collection::command_run(){
