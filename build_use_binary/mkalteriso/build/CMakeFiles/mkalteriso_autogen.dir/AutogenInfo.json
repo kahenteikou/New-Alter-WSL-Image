@@ -1,0 +1,96 @@
+{
+	"BUILD_DIR" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/mkalteriso_autogen",
+	"CMAKE_BINARY_DIR" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_SOURCE_DIR" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso",
+	"DEP_FILE" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/mkalteriso_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "mkalteriso_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso/build_setting.h",
+			"MU",
+			"EWIEGA46WW/moc_build_setting.cpp"
+		],
+		[
+			"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso/command_collection.h",
+			"MU",
+			"EWIEGA46WW/moc_command_collection.cpp"
+		],
+		[
+			"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso/main.h",
+			"MU",
+			"EWIEGA46WW/moc_main.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/mkalteriso_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/mkalteriso_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_NO_DEBUG" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build",
+		"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso",
+		"/usr/include/qt",
+		"/usr/include/qt/QtCore",
+		"/usr/lib/qt/mkspecs/linux-g++",
+		"/usr/include/c++/10.1.0",
+		"/usr/include/c++/10.1.0/x86_64-pc-linux-gnu",
+		"/usr/include/c++/10.1.0/backward",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include",
+		"/usr/local/include",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/sbin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/mkalteriso_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/CMakeFiles/mkalteriso_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/CMakeFiles/mkalteriso_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso/build_setting.cpp",
+			"MU"
+		],
+		[
+			"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso/command_collection.cpp",
+			"MU"
+		],
+		[
+			"/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/mkalteriso/main.cpp",
+			"MU"
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

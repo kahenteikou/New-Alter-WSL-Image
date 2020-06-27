@@ -1,0 +1,1 @@
+PACKAGES="base automake autoconf gcc make pkgconf which m4 groff grep bison findutils less nano vim curl aptpac yay-bin"
