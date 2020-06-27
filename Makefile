@@ -8,4 +8,5 @@ build_use_binary/mkalteriso/build/mkalteriso:
 	fi
 	(cd build_use_binary/mkalteriso/build ; cmake -GNinja ../../../mkalteriso/ ; ninja -j4 )
 install.tar.gz:build_use_binary/mkalteriso/build/mkalteriso
+	rm -rf work
 	./build.sh build_use_binary/mkalteriso/build/mkalteriso
