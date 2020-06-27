@@ -11,6 +11,8 @@ cp mirrorlist work/x86_64/airootfs/etc/pacman.d/
 cp mirrorlist-alter work/x86_64/airootfs/etc/pacman.d/
 cp sudoers work/x86_64/airootfs/etc/
 cp adduser-deb-3.113+nmu3-1-any.pkg.tar.xz work/x86_64/airootfs/
+sed -i -e "s/#ja_JP.UTF-8/ja_JP.UTF-8/" work/x86_64/airootfs/etc/locale.gen
+echo "LANG=ja_JP.UTF-8" | tee work/x86_64/airootfs/etc/locale.conf
 rm -rf work/x86_64/airootfs/etc/mtab
 echo "rootfs / rootfs rw 0 0" | tee work/x86_64/airootfs/etc/mtab
 rm -rf `find  work/x86_64/airootfs/root/ -type f`
