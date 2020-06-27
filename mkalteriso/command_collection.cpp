@@ -38,7 +38,7 @@ int command_collection::_chroot_init(){
     if(!dir.exists("airootfs")){
         dir.mkpath("airootfs");
     }
-    _pacman("base base-devel yay-bin nano vim sudo wget curl");
+    _pacman("base base-devel automake autoconf gcc make pkgconf which m4 groff grep bison findutils less nano vim curl aptpac yay-bin alterlinux-keyring");
     return 0;
 }
 int command_collection::command_run(){
