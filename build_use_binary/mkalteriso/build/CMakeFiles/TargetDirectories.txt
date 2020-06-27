@@ -1,4 +1,0 @@
-/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/CMakeFiles/rebuild_cache.dir
-/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/CMakeFiles/edit_cache.dir
-/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/CMakeFiles/mkalteriso.dir
-/home/kokkiemouse/Win_Share/New-Alter-WSL-Image/build_use_binary/mkalteriso/build/CMakeFiles/mkalteriso_autogen.dir

@@ -1,8 +1,0 @@
-# ninja log v5
-0	1129	1593215016570000000	mkalteriso_autogen/timestamp	6847d802dbaefeef
-1129	2922	1593215018360000000	CMakeFiles/mkalteriso.dir/build_setting.cpp.o	c3cc91c3869389cb
-1129	3093	1593215018530000000	CMakeFiles/mkalteriso.dir/mkalteriso_autogen/mocs_compilation.cpp.o	95d41552fadf015a
-1129	3202	1593215018640000000	CMakeFiles/mkalteriso.dir/main.cpp.o	8e3e9892bf2bc5b0
-1130	3381	1593215018820000000	CMakeFiles/mkalteriso.dir/command_collection.cpp.o	d283b0b50072ec7d
-3381	3843	1593215019280000000	mkalteriso	358531b09140a5fc
-2	320	1593215125780000000	mkalteriso	358531b09140a5fc
