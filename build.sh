@@ -1480,7 +1480,7 @@ fi
 
 
 # Debug mode
-mkalteriso_option="-a ${arch} -v"
+mkalteriso_option="-a ${arch} --wsl -v"
 if [[ "${bash_debug}" = true ]]; then
     set -x
     set -v

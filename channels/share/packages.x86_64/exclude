@@ -21,6 +21,7 @@ haveged
 intel-ucode
 linux
 linux-headers
+linux-firmware
 memtest86+
 mkinitcpio-nfs-utils
 nbd
