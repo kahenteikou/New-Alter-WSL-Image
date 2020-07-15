@@ -18,14 +18,6 @@ deploy:
   file: "/releasekun/rootfs.tar.gz"
   on:
     repo: kokkiemouse/New-Alter-WSL-Image
+    all_branches: true
+    tags: true
   skip_cleanup: 'true'
-jobs:
-  include:
-    -
-      if: branch = master
-      stage: Push release tag
-      script:
-        - chmod +x ./git-tag.sh
-        - ./git-tag.sh
-
-      deploy: []
