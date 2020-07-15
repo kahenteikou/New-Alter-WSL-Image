@@ -24,5 +24,8 @@ jobs:
     -
       if: branch = master
       stage: Push release tag
-      script: ./git-tag.sh
+      script:
+        - chmod +x ./git-tag.sh
+        - ./git-tag.sh
+
       deploy: []
