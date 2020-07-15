@@ -6,6 +6,6 @@ RUN pacman -S archiso git arch-install-scripts sudo qt5-base cmake ninja base-de
 RUN pacman-key --init
 COPY . /alterlinux
 WORKDIR /alterlinux
-RUN git checkout dev
+RUN git checkout master
 RUN ./keyring.sh -a
-CMD ["./build.sh", "-b"]
+CMD ["./build.sh", "-g","ja","-k","core","--noconfirm","wsl"]

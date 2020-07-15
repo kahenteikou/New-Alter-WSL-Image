@@ -1,5 +1,10 @@
 language: shell
-script:
-  - bash -c 'shopt -s globstar nullglob; shellcheck -s bash --exclude=SC2068 -S error **/*.{sh,ksh,bash}'
+services:
+  - docker
+before_install:
+  - docker build -t alterlinux-build:latest .
+  - docker run -e _DOCKER=true -t -i --privileged -v $SCRIPT_DIR/out:/alterlinux/out -v /usr/lib/modules:/usr/lib/modules:ro alterlinux-build
 git:
   submodules: false
+script:
+- bundle exec rake test
