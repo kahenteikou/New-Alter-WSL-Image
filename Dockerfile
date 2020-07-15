@@ -8,4 +8,4 @@ COPY . /alterlinux
 WORKDIR /alterlinux
 RUN git checkout master
 RUN ./keyring.sh -a
-CMD ["./build.sh", "-g","ja","-k","core","--noconfirm","wsl"]
+CMD ["./build.sh", "-g","ja","-k","core","--noconfirm","--noloopmod","--noiso","--tarball","wsl"]
