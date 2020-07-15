@@ -19,3 +19,10 @@ deploy:
   on:
     repo: kokkiemouse/New-Alter-WSL-Image
   skip_cleanup: 'true'
+jobs:
+  include:
+    -
+      if: branch = master
+      stage: Push release tag
+      script: ./git-tag.sh
+      deploy: []
