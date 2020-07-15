@@ -1,0 +1,2 @@
+Defaults env_keep += "HOME"
+%wheel ALL=(ALL) ALL
