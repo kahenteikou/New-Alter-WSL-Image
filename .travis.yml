@@ -9,13 +9,12 @@ before_install:
 git:
   submodules: false
 script:
-- mkdir /releasekun
-- cp /alterlinux/out/*.tar.gz /releasekun/rootfs.tar.gz
+- cp -f /alterlinux/out/*.tar.gz /alterlinux/rootfs.tar.gz
 deploy:
   provider: releases
   api_key:
     secure: QmAU47XIe8J0xHh4iD54sIrZWpcX9UT0OU9it31pr1uF41wTDBK1DEHlk8SVMG+pkcAbSIuP90CYSb2am1nakTRlgEcI2LN4Y7X3GRm7bavnOaff185PCHPk4ORbTNMixfBzglRriHpBdoZ75oP6FyX7TuPKSsLY3fhjYcFjST9ltTK/SR1VPXlkX9QQ8Bh2eRW1A5IIWpcZ/S1zKM4wJvIEQqlR7Wvh+l1Wdh1pHcwKwKxrSrvcpx0mPMjwAx2uflQvzkdKerMzWJuwE1zSODE5yEjJsMYzeLDuqsKH3MMzqtkA1oTrRtVCLWl4u+UKRSwsdc3nKU6eExrK2fhxJw2du6TlmsB2m9K3MTo7RRsNXvPdW0qe5lRzQLkOqVDSn7zsBAgP4eJ9nSe7pp5UOOkKFElgV/2MVMuNXlOy9NRFVxsZ1hSvVS0euKyH8ShV4tVLNDmJdgtKY+9bxOlUN42v/lHhT/1VdLtI1a88KIdQcHxExti2ZUOOGBGXFi28Czb+rnM4CDswWGrxcT/Y6djGab3WT/NAcbSvf+K2Vor5u04a+iyN+DkJi7VaTbThg+0hVibrNNjrdSd4WhdySoRiuXac8Q0nltz8YUEvHR8QBeS5WVrkmFEUEd6vgC9+a2pKhdffdZTQ5yr5Ge1Flc4jGHdRfrRCFmKW20NgdEo=
-  file: "/releasekun/rootfs.tar.gz"
+  file: "/alterlinux/rootfs.tar.gz"
   on:
     repo: kokkiemouse/New-Alter-WSL-Image
     all_branches: true
