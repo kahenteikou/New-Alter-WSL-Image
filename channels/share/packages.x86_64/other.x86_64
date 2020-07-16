@@ -27,3 +27,17 @@ tlp
 #-- man --#
 man-db
 man-pages
+
+#-- genie --#
+libnsl
+python
+python-appdirs
+python-ordered-set
+python-packaging
+python-pyparsing
+python-setuptools
+python-six
+python-markdown
+dotnet-runtime
+dotnet-host
+inetutils

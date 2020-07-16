@@ -242,3 +242,6 @@ systemctl enable NetworkManager.service
 systemctl enable tlp.service
 systemctl mask systemd-rfkill.service
 systemctl mask systemd-rfkill.socket
+
+#tty disable
+systemctl disable getty@tty1.service

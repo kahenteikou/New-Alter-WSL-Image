@@ -1293,6 +1293,7 @@ make_efiboot() {
 
 # Compress tarball
 make_tarball() {
+    sed -i "s/#Server/Server/g" "${work_dir}/${arch}/airootfs/etc/pacman.d/mirrorlist"
     cp -a -l -f "${work_dir}/${arch}/airootfs" "${work_dir}"
 
     if [[ -f "${work_dir}/${arch}/airootfs/root/optimize_for_tarball.sh" ]]; then

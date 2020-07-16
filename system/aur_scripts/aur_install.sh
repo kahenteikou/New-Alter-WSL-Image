@@ -41,7 +41,7 @@ function user_check () {
 # Build and install
 remove "/aurbuild_temp/aur_build.sh"
 for _aur_pkg in ${*}; do
-    echo  "cd ~ ;cd ${_aur_pkg} ; makepkg -cfs " > "/aurbuild_temp/aur_build.sh"
+    echo  "cd ~ ;cd ${_aur_pkg} ; makepkg -cfsd " > "/aurbuild_temp/aur_build.sh"
     chmod 777 "/aurbuild_temp/aur_build.sh"
     sudo -u aurbuild "/aurbuild_temp/aur_build.sh"
 done
