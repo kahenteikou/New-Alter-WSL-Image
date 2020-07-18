@@ -713,6 +713,7 @@ show_settings() {
         _msg_info "Boot splash is enabled."
         _msg_info "Theme is used ${theme_name}."
     fi
+    _msg_info "Language is ${lang_fullname}."
     _msg_info "Use the ${kernel} kernel."
     _msg_info "Live username is ${username}."
     _msg_info "Live user password is ${password}."
@@ -931,6 +932,10 @@ make_packages_aur() {
     
     # Create a list of packages to be finally installed as packages.list directly under the working directory.
     echo -e "\n\n# AUR packages.\n#" >> "${work_dir}/packages.list"
+    if [ ${#pkglist_aur[@]} -eq 0 ]; then
+        echo "# No Package!" >>  "${work_dir}/packages.list"
+        return
+    fi
     echo >> "${work_dir}/packages.list"
     for _pkg in ${pkglist_aur[@]}; do
         echo ${_pkg} >> "${work_dir}/packages.list"
@@ -1161,7 +1166,7 @@ make_setup_mkinitcpio() {
 make_boot() {
     mkdir -p "${work_dir}/iso/${install_dir}/boot/${arch}"
     cp "${work_dir}/${arch}/airootfs/boot/archiso.img" "${work_dir}/iso/${install_dir}/boot/${arch}/archiso.img"
-    cp "${work_dir}/${arch}/airootfs/boot/${kernel_filename}" "${work_dir}/iso/${install_dir}/boot/${arch}/${kernel_filename})"
+    cp "${work_dir}/${arch}/airootfs/boot/${kernel_filename}" "${work_dir}/iso/${install_dir}/boot/${arch}/${kernel_filename}"
 }
 
 # Add other aditional/extra files to ${install_dir}/boot/
@@ -1180,39 +1185,38 @@ make_syslinux() {
     _uname_r="$(file -b ${work_dir}/${arch}/airootfs/boot/${kernel_filename} | awk 'f{print;f=0} /version/{f=1}' RS=' ')"
     mkdir -p "${work_dir}/iso/${install_dir}/boot/syslinux"
     
+    # copy all syslinux config to work dir
     for _cfg in ${script_path}/syslinux/${arch}/*.cfg; do
         sed "s|%ARCHISO_LABEL%|${iso_label}|g;
              s|%OS_NAME%|${os_name}|g;
-        s|%INSTALL_DIR%|${install_dir}|g" "${_cfg}" > "${work_dir}/iso/${install_dir}/boot/syslinux/${_cfg##*/}"
+             s|%KERNEL_FILENAME%|${kernel_filename}|g;
+             s|%INSTALL_DIR%|${install_dir}|g" "${_cfg}" > "${work_dir}/iso/${install_dir}/boot/syslinux/${_cfg##*/}"
     done
     
-    if [[ ${boot_splash} = true ]]; then
-        sed "s|%ARCHISO_LABEL%|${iso_label}|g;
-             s|%OS_NAME%|${os_name}|g;
-        s|%INSTALL_DIR%|${install_dir}|g" \
-        "${script_path}/syslinux/${arch}/pxe-plymouth/archiso_pxe-${kernel}.cfg" > "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_pxe.cfg"
-        
-        sed "s|%ARCHISO_LABEL%|${iso_label}|g;
-             s|%OS_NAME%|${os_name}|g;
-        s|%INSTALL_DIR%|${install_dir}|g" \
-        "${script_path}/syslinux/${arch}/sys-plymouth/archiso_sys-${kernel}.cfg" > "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_sys.cfg"
+    # Replace the SYSLINUX configuration file with or without boot splash.
+    local _use_config_name
+    local _no_use_config_name
+    local _pxe_or_sys
+    if [[ "${boot_splash}" = true ]]; then
+        _use_config_name=splash
+        _no_use_config_name=nosplash
     else
-        sed "s|%ARCHISO_LABEL%|${iso_label}|g;
-             s|%OS_NAME%|${os_name}|g;
-        s|%INSTALL_DIR%|${install_dir}|g" \
-        "${script_path}/syslinux/${arch}/pxe/archiso_pxe-${kernel}.cfg" > "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_pxe.cfg"
-        
-        sed "s|%ARCHISO_LABEL%|${iso_label}|g;
-             s|%OS_NAME%|${os_name}|g;
-        s|%INSTALL_DIR%|${install_dir}|g" \
-        "${script_path}/syslinux/${arch}/sys/archiso_sys-${kernel}.cfg" > "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_sys.cfg"
+        _use_config_name=nosplash
+        _no_use_config_name=splash
     fi
-    
+    for _pxe_or_sys in "sys" "pxe"; do
+        remove "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_${_pxe_or_sys}_${_no_use_config_name}.cfg"
+        mv "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_${_pxe_or_sys}_${_use_config_name}.cfg" "${work_dir}/iso/${install_dir}/boot/syslinux/archiso_${_pxe_or_sys}.cfg"
+    done
+
+    # Set syslinux wallpaper
     if [[ -f "${script_path}/channels/${channel_name}/splash.png" ]]; then
         cp "${script_path}/channels/${channel_name}/splash.png" "${work_dir}/iso/${install_dir}/boot/syslinux"
     else
         cp "${script_path}/syslinux/${arch}/splash.png" "${work_dir}/iso/${install_dir}/boot/syslinux"
     fi
+
+    # copy files
     cp "${work_dir}"/${arch}/airootfs/usr/lib/syslinux/bios/*.c32 "${work_dir}/iso/${install_dir}/boot/syslinux"
     cp "${work_dir}/${arch}/airootfs/usr/lib/syslinux/bios/lpxelinux.0" "${work_dir}/iso/${install_dir}/boot/syslinux"
     cp "${work_dir}/${arch}/airootfs/usr/lib/syslinux/bios/memdisk" "${work_dir}/iso/${install_dir}/boot/syslinux"
@@ -1267,7 +1271,7 @@ make_efiboot() {
     
     mkdir -p "${work_dir}/efiboot/EFI/archiso"
     
-    cp "${work_dir}/iso/${install_dir}/boot/${arch}/${kernel_filename})" "${work_dir}/efiboot/EFI/archiso/${kernel_filename}).efi"
+    cp "${work_dir}/iso/${install_dir}/boot/${arch}/${kernel_filename}" "${work_dir}/efiboot/EFI/archiso/${kernel_filename}.efi"
     cp "${work_dir}/iso/${install_dir}/boot/${arch}/archiso.img" "${work_dir}/efiboot/EFI/archiso/archiso.img"
     
     cp "${work_dir}/iso/${install_dir}/boot/intel_ucode.img" "${work_dir}/efiboot/EFI/archiso/intel_ucode.img"
@@ -1511,62 +1515,71 @@ rebuildfile="${work_dir}/build_options"
 set +eu
 if [[ -n "${1}" ]]; then
     channel_name="${1}"
-    
-    # Channel list
-    # check_channel <channel name>
-    check_channel() {
-        local channel_list
-        local i
-        channel_list=()
-        for i in $(ls -l "${script_path}"/channels/ | awk '$1 ~ /d/ {print $9 }'); do
-            if [[ -n $(ls "${script_path}"/channels/${i}) ]] && [[ ! ${i} = "share" ]]; then
-                if [[ $(echo "${i}" | sed 's/^.*\.\([^\.]*\)$/\1/') = "add" ]]; then
-                    channel_list="${channel_list[@]} ${i}"
-                elif [[ ! -d "${script_path}/channels/${i}.add" ]]; then
-                    channel_list="${channel_list[@]} ${i}"
-                fi
-            fi
-        done
-        for i in ${channel_list[@]}; do
+fi
+
+# check_channel <channel name>
+check_channel() {
+    local channel_list
+    local i
+    channel_list=()
+    for i in $(ls -l "${script_path}"/channels/ | awk '$1 ~ /d/ {print $9 }'); do
+        if [[ -n $(ls "${script_path}"/channels/${i}) ]] && [[ ! ${i} = "share" ]]; then
             if [[ $(echo "${i}" | sed 's/^.*\.\([^\.]*\)$/\1/') = "add" ]]; then
-                if [[ $(echo ${i} | sed 's/\.[^\.]*$//') = ${1} ]]; then
-                    echo -n "true"
-                    return 0
-                fi
-            elif [[ ${i} = ${1} ]]; then
+                channel_list="${channel_list[@]} ${i}"
+            elif [[ ! -d "${script_path}/channels/${i}.add" ]]; then
+                channel_list="${channel_list[@]} ${i}"
+            fi
+        fi
+    done
+    for i in ${channel_list[@]}; do
+        if [[ $(echo "${i}" | sed 's/^.*\.\([^\.]*\)$/\1/') = "add" ]]; then
+            if [[ $(echo ${i} | sed 's/\.[^\.]*$//') = ${1} ]]; then
                 echo -n "true"
                 return 0
             fi
-        done
-        if [[ "${channel_name}" = "rebuild" ]] || [[ "${channel_name}" = "clean" ]] || [[ "${channel_name}" = "retry" ]]; then
+        elif [[ ${i} = ${1} ]]; then
             echo -n "true"
             return 0
-        else
-            echo -n "false"
-            return 1
         fi
-    }
-    
-    if [[ $(check_channel "${channel_name}") = false ]]; then
-        _msg_error "Invalid channel ${channel_name}" "1"
+    done
+    if [[ "${channel_name}" = "rebuild" ]] || [[ "${channel_name}" = "clean" ]] || [[ "${channel_name}" = "retry" ]]; then
+        echo -n "true"
+        return 0
+    else
+        echo -n "false"
+        return 1
     fi
+}
 
-    
-    if [[ -d "${script_path}"/channels/${channel_name}.add ]]; then
-        channel_name="${channel_name}.add"
-    elif [[ "${channel_name}" = "rebuild" ]] || [[ "${channel_name}" = "retry" ]]; then
-        if [[ -f "${rebuildfile}" ]]; then
-            rebuild=true
-        else
-            _msg_error "The previous build information is not in the working directory." "1"
-        fi
+# Check for a valid channel name
+if [[ $(check_channel "${channel_name}") = false ]]; then
+    _msg_error "Invalid channel ${channel_name}" "1"
+fi
+
+# Set for special channels
+if [[ -d "${script_path}"/channels/${channel_name}.add ]]; then
+    channel_name="${channel_name}.add"
+elif [[ "${channel_name}" = "rebuild" ]] || [[ "${channel_name}" = "retry" ]]; then
+    if [[ -f "${rebuildfile}" ]]; then
+        rebuild=true
+    else
+        _msg_error "The previous build information is not in the working directory." "1"
     fi
+elif [[ "${channel_name}" = "clean" ]]; then
+    umount_chroot
+    remove "${script_path}/menuconfig/build"
+	remove "${script_path}/system/cpp-src/mkalteriso/build"
+	remove "${script_path}/menuconfig-script/kernel_choice"
+    remove_work
+    remove "${rebuildfile}"
+    exit 0
+fi
 
-    if [[ ! "${channel_name}" == "rebuild" ]] && [[ ! "${channel_name}" = "retry" ]]; then
-        _msg_debug "channel path is ${script_path}/channels/${channel_name}"
-        if [[ ! "$(cat "${script_path}/channels/${channel_name}/alteriso" 2> /dev/null)" = "alteriso=3" ]] && [[ "${nochkver}" = false ]]; then
-            _msg_error "This channel does not support AlterISO 3." "1"
-        fi
+# Check channel version
+if [[ ! "${channel_name}" == "rebuild" ]] && [[ ! "${channel_name}" = "retry" ]]; then
+    _msg_debug "channel path is ${script_path}/channels/${channel_name}"
+    if [[ ! "$(cat "${script_path}/channels/${channel_name}/alteriso" 2> /dev/null)" = "alteriso=3" ]] && [[ "${nochkver}" = false ]]; then
+        _msg_error "This channel does not support AlterISO 3." "1"
     fi
 fi
 
@@ -1581,17 +1594,6 @@ if [[ ! "${channel_name}" = "rebuild" ]] && [[ ! "${channel_name}" = "clean" ]] 
     if [[ -f "${script_path}/channels/${channel_name}/kernel_list-${arch}" ]] && [[ -z $(cat "${script_path}/channels/${channel_name}/kernel_list-${arch}" | grep -h -v ^'#' | grep -x "${kernel}" 2> /dev/null) ]]; then
         _msg_error "This kernel is currently not supported on this channel." "1"
     fi
-fi
-
-# Run clean
-if [[ "${channel_name}" = "clean" ]]; then
-    umount_chroot
-    remove "${script_path}/menuconfig/build"
-	remove "${script_path}/system/cpp-src/mkalteriso/build"
-	remove "${script_path}/menuconfig-script/kernel_choice"
-    remove_work
-    remove "${rebuildfile}"
-    exit 0
 fi
 
 
@@ -1623,6 +1625,7 @@ localegen=$(echo ${locale_config_line} | awk '{print $2}')
 mirror_country=$(echo ${locale_config_line} | awk '{print $3}')
 locale_name=$(echo ${locale_config_line} | awk '{print $4}')
 timezone=$(echo ${locale_config_line} | awk '{print $5}')
+lang_fullname=$(echo ${locale_config_line} | awk '{print $6}')
 
 
 # Parse kernel
