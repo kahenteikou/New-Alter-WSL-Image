@@ -10,15 +10,3 @@
 # Base packages
 
 base-devel
-
-# Japanese package
-
-# fcitx config
-alterlinux-fcitx-conf
-
-# fcitx
-fcitx
-fcitx-configtool
-fcitx-mozc
-fcitx-qt5
-

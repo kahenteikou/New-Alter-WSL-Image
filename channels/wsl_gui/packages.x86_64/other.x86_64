@@ -15,3 +15,16 @@ man-pages
 #-- text editor --#
 vim
 
+# gui
+noto-fonts-cjk
+
+# Japanese package
+
+# fcitx config
+alterlinux-fcitx-conf
+
+# fcitx
+fcitx
+fcitx-configtool
+fcitx-mozc
+fcitx-qt5
